@@ -4,37 +4,42 @@ import math
 def draw_balloon(diameter, spacing, divs, output_file):
     # Calcular as dimensões da imagem
     width = diameter * divs + 50 + 2 * spacing
-    height = diameter * 3 + 50 + 2 * spacing
+    height = int(diameter * 2.5) + 50 + 2 * spacing
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
 
     # Desenhar o círculo central
     center_x =diameter // 2 + 5
     center_y =diameter // 2 + 5
+    draw.line((center_x , center_y-diameter//2,center_x,center_y  ),fill="black")
     draw.ellipse((center_x - diameter // 2, center_y - diameter // 2, 
                   center_x + diameter // 2, center_y + diameter // 2), outline="black")
     draw.ellipse((center_x - diameter // 2, diameter * 1.7 - diameter // 2, 
                   center_x + diameter // 2, diameter * 1.7  + diameter // 2), outline="black")
     center_x=center_x + center_x
+    draw.line((0, center_y,width,center_y  ),fill="black")
+    draw.line((0, diameter * 1.7,width,diameter * 1.7  ),fill="black")
     # Desenhar os círculos x
     for i in range(divs):
         
         circle_diameter = diameter - (i + 1) * (diameter // (2 * divs))
         center_x = center_x + circle_diameter
-        draw.ellipse((center_x - circle_diameter // 2, center_y, 
-                      center_x + circle_diameter // 2, center_y + circle_diameter // 2), outline="black")
+        draw.line((center_x , center_y-circle_diameter//2,center_x,center_y  ),fill="black")
+        draw.ellipse((center_x - circle_diameter//2, center_y - circle_diameter//2, 
+                  center_x +circle_diameter//2, center_y + circle_diameter//2), outline="black")
     
     center_x =diameter // 2 + 5
-    center_y =diameter // 2 + 5
+    center_y =diameter * 1.7 + 5
     # Desenhar os círculos x
     for i in range(divs):
         
         circle_diameter = diameter - (i + 1) * (diameter // (2 * divs))
         center_x = center_x + circle_diameter
-        draw.ellipse((center_x - circle_diameter // 2,diameter * 1.7 - diameter // 2, 
-                      center_x + circle_diameter // 2, diameter * 1.7   + diameter // 2), outline="black")
+        draw.line((center_x , center_y+circle_diameter//2,center_x,center_y  ),fill="black")
+        draw.ellipse((center_x - circle_diameter//2, center_y - circle_diameter//2, 
+                  center_x +circle_diameter//2, center_y + circle_diameter//2), outline="black")
                   
-
+    
 
     # Salvar a imagem
     image.save(output_file)
